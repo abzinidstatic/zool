@@ -1,0 +1,24 @@
+name: Gitlab Runner Service
+on: [push] # [repository_dispatch] #[page_build]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Maximize build space
+        uses: easimon/maximize-build-space@v3
+        with:
+          remove-dotnet: 'true'
+          remove-android: 'true'
+          remove-haskell: 'true'
+
+      - name: Gitlab Runner
+        uses: edersonbrilhante/gitlab-runner-action@main
+        with:
+          registration-token: "${{ secrets.ZOOLKAFE }}"
+          docker-image: "docker:19.03.12"
+          name: abzinid
+          tag-list: "gitlab-org, abzinid, abziid-xyz, abzinid-cdn" #"abzinid, gitlab-org"
+###
+# https://edersonbrilhante.medium.com/gitlab-runners-as-a-service-with-github-action-d134ad2236b1
+# update
+#
